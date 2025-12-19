@@ -118,11 +118,12 @@
         </div>
     </section>
 
-    <section class="cuatro">
+<section class="cuatro">
         <div class="container">
             <h2>Mi libro</h2>
             
             <div class="book-layout">
+                
                 <article class="book-info">
                     <span class="tag">Mi libro</span>
                     <h3 class="hGen">El Despertar de los Espíritus: El Planeta Azul</h3>
@@ -130,23 +131,28 @@
                     <p class="pGen">Es una obra espiritual que narra el viaje de un espíritu en busca de su próxima reencarnación, guiado por el llamado silencioso de un mundo en crisis.</p>
                     
                     <p class="pGen">A través de encuentros con grandes maestros espirituales, el protagonista explora enseñanzas universales que lo llevan a cuestionar su papel en la transformación del planeta.</p>
-                    
-                    <div class="book-actions">
-                         <div class="meta">
-                            <!--<span class="stars">★★★★★</span> 
-                            <span>4.9/5 (1,245 reseñas)</span>-->
-                        </div>
-                        <a href="https://www.amazon.com.mx/dp/B0F8QH3TH4" target="_blank" class="btn-primary buy-btn">
-                            <i class="bi bi-cart"></i> Comprar Ahora
-                        </a>
-                    </div>
                 </article>
 
+                <div class="book-cta">
+                    <a href="https://www.amazon.com.mx/dp/B0F8QH3TH4" target="_blank" class="btn-primary buy-btn">
+                        <i class="bi bi-cart"></i> Comprar Ahora
+                    </a>
+                </div>
+
                 <article class="book-images">
-                    <div class="img-wrapper">
-                        <img src="img1.jpg" class="front-cover" alt="Portada">
+                    <div class="slider-container">
+                        <div class="slider-track" id="sliderTrack">
+                            <div class="slide">
+                                <img src="img1.jpg" alt="Portada del libro">
+                            </div>
+                            <div class="slide">
+                                <img src="img2.jpg" alt="Contraportada">
+                            </div>
                         </div>
+                        <div class="slider-dots" id="sliderDots"></div>
+                    </div>
                 </article>
+                
             </div>
         </div>
     </section>
@@ -179,4 +185,5 @@
         </div>
     </footer>
 </body>
+<script src="index.js"></script>
 </html>

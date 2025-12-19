@@ -12,7 +12,7 @@
     --bg-light: #f5f5f7;
     --white: #ffffff;
     --border: #d2d2d7;
-    --accent-blue: #0071e3; /* Solo para enlaces o detalles pequeños */
+    --accent-blue: #0071e3;
     --font-main: 'Poppins', sans-serif;
 }
 
@@ -220,32 +220,49 @@ button, .btn-primary, .btn-secondary {
     font-weight: 500;
 }
 
-/* --- Seccion 4: Libro --- */
+/* --- Seccion 4: Libro (Grid System) --- */
 .cuatro {
     padding: 100px 0;
-    /* Fondo blanco como pediste */
     background-color: #FAFAFA; 
     border-top: 1px solid var(--bg-light);
 }
 
 .cuatro h2 {
-    display: none; /* Ocultamos el titulo genérico para usar el diseño del libro */
+    display: none; 
 }
 
 .book-layout {
-    display: flex;
+    display: grid;
+    /* DESKTOP: 2 Columnas. Izq: Texto+Boton, Der: Slider */
+    grid-template-columns: 1fr 1fr; 
+    grid-template-areas: 
+        "info slider"
+        "cta  slider";
+    gap: 20px 60px; /* espacio filas / espacio columnas */
     align-items: center;
-    gap: 60px;
-    /* Invertimos orden si es necesario en movil, pero en desktop: Texto izq, Imagen der */
 }
 
-.book-info {
-    flex: 1;
+/* Asignamos nombres a las áreas */
+.book-info { 
+    grid-area: info; 
+    align-self: end; /* Texto pegado hacia abajo (cerca del botón) */
+}
+
+.book-cta { 
+    grid-area: cta; 
+    align-self: start; /* Botón pegado hacia arriba (cerca del texto) */
+    padding-top: 10px;
+}
+
+.book-images { 
+    grid-area: slider; 
+    display: flex;
+    justify-content: center;
 }
 
 .tag {
     display: inline-block;
-    background: #eef2ff; /* Un azul muy muy palido o gris */
+    background: #eef2ff;
     color: #333;
     font-size: 0.8rem;
     font-weight: 600;
@@ -267,12 +284,6 @@ button, .btn-primary, .btn-secondary {
     font-size: 1.05rem;
 }
 
-.book-actions {
-    margin-top: 30px;
-    padding-top: 30px;
-    border-top: 1px solid #eee;
-}
-
 .meta {
     margin-bottom: 20px;
     font-weight: 600;
@@ -280,26 +291,66 @@ button, .btn-primary, .btn-secondary {
 }
 .stars { color: #f5a623; margin-right: 10px; }
 
-.book-images {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+
+/* --- Estilos del Carrusel (Slider) --- */
+.slider-container {
+    width: 100%;
+    max-width: 350px;
     position: relative;
 }
 
-.img-wrapper {
-    position: relative;
-    max-width: 400px;
-    /* Sombra elegante para el libro */
-    box-shadow: 0 30px 60px -12px rgba(0,0,0,0.25);
-    border-radius: 5px; /* Radio pequeño para libro */
+.slider-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+}
+
+.slider-track::-webkit-scrollbar {
+    display: none;
+}
+
+.slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #000;
+    transform: scale(1.2);
 }
 
 /* --- Footer --- */
 footer {
     background-color: var(--white);
     padding: 80px 0 40px;
-    background:s;
     border-top: 1px solid #eaeaea;
     font-size: 0.9rem;
 }
@@ -348,14 +399,6 @@ footer {
     padding-top: 30px;
 }
 
-/* --- Responsive --- */
-@media (max-width: 768px) {
-    .uno h1 { font-size: 2.5rem; }
-    .book-layout { flex-direction: column-reverse; text-align: center; }
-    .footer-content { grid-template-columns: 1fr; text-align: center; }
-    .nav-link { display: none; /* Oculto en móvil por simplicidad, requeriría JS para toggle */ }
-}
-
 /* =========================================
    MEDIA QUERIES (RESPONSIVE)
    ========================================= */
@@ -363,154 +406,83 @@ footer {
 /* --- Tablet y Laptops Pequeñas (max-width: 1024px) --- */
 @media screen and (max-width: 1024px) {
     
-    /* Ajustamos el contenedor para aprovechar más espacio */
     .container {
         max-width: 95%; 
         padding: 0 30px;
     }
 
-    /* Reducimos un poco el título gigante */
     .uno h1 {
         font-size: 3rem; 
     }
 
-    /* Ajustamos la sección del libro */
+    /* Ajuste de GRID para Libro (Texto -> Slider -> Boton) */
     .book-layout {
-        gap: 30px; /* Menos espacio entre texto e imagen */
+        grid-template-columns: 1fr; /* 1 sola columna */
+        grid-template-areas: 
+            "info"
+            "slider"
+            "cta";
+        gap: 40px;
+        text-align: center;
     }
 
-    .book-info h3 {
-        font-size: 2.2rem; /* Título del libro un poco más chico */
-    }
+    .book-info { align-self: center; }
+    .book-cta { justify-self: center; align-self: center; }
+    .book-info h3 { font-size: 2.2rem; }
     
-    /* El menú de navegación se mantiene horizontal pero con menos espacio */
+    /* El menú de navegación */
     .nav-link {
         gap: 15px; 
         font-size: 0.85rem;
     }
 }
 
+/* --- Tablet pequeño (elimina conflictos de flex) --- */
+@media (max-width: 768px) {
+    .uno h1 { font-size: 2.5rem; }
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+    .nav-link { display: none; }
+}
+
 /* --- Móviles (max-width: 600px) --- */
 @media screen and (max-width: 600px) {
 
-    /* --- General --- */
     .container {
         padding: 0 20px;
     }
 
     .section-header {
         margin-bottom: 30px;
-        text-align: left; /* En móvil se lee mejor alineado a la izquierda a veces, o déjalo center */
+        text-align: left;
     }
 
     .section-header h2 {
         font-size: 2rem;
     }
 
-    /* --- Menú de Navegación (Stack Vertical) --- */
-    .nav {
-        height: auto; /* Dejar que crezca según el contenido */
-        padding: 15px 0;
-        position: relative; /* Quitamos sticky si molesta en pantallas muy chicas, o se deja */
-    }
+    /* Menu */
+    .nav { height: auto; padding: 15px 0; position: relative; }
+    .nav-container { flex-direction: column; gap: 15px; }
+    .nav-link { flex-direction: column; width: 100%; gap: 15px; text-align: center; padding-bottom: 10px; }
+    .btn-nav { display: block; width: 100%; text-align: center; }
 
-    .nav-container {
-        flex-direction: column; /* Elementos uno debajo del otro */
-        gap: 15px;
-    }
+    /* Hero */
+    .uno { padding: 60px 0; text-align: left; }
+    .uno h1 { font-size: 2.5rem; }
+    .botones { flex-direction: column; width: 100%; }
+    .botones button { width: 100%; justify-content: center; }
 
-    .nav-link {
-        flex-direction: column; /* Links en lista vertical */
-        width: 100%;
-        gap: 15px;
-        text-align: center;
-        padding-bottom: 10px;
-    }
+    /* Grids */
+    .grid-container { grid-template-columns: 1fr; gap: 20px; }
 
-    .btn-nav {
-        display: block; /* Botón ancho completo en menú */
-        width: 100%;
-        text-align: center;
-    }
+    /* Libro */
+    .book-info h3 { font-size: 1.8rem; }
+    .buy-btn { width: 100%; justify-content: center; }
+    .book-cta { width: 100%; }
 
-    /* --- Sección 1: Hero --- */
-    .uno {
-        padding: 60px 0; /* Menos relleno arriba/abajo */
-        text-align: left; /* Alineación izquierda en móvil suele verse más moderna */
-    }
-
-    .uno h1 {
-        font-size: 2.5rem; /* Letra más manejable */
-    }
-    
-    .botones {
-        flex-direction: column; /* Botones uno arriba del otro */
-        width: 100%;
-    }
-
-    .botones button {
-        width: 100%; /* Botones de ancho completo para facilitar el toque */
-        justify-content: center;
-    }
-
-    /* --- Grids (Cursos y Conferencias) --- */
-    .grid-container {
-        /* Forzamos 1 sola columna */
-        grid-template-columns: 1fr; 
-        gap: 20px;
-    }
-
-    /* --- Sección Libro --- */
-    .book-layout {
-        flex-direction: column; /* Columna vertical */
-    }
-
-    .book-info {
-        order: 2; /* Texto abajo */
-    }
-
-    .book-images {
-        order: 1; /* Imagen arriba */
-        margin-bottom: 20px;
-    }
-
-    .book-info h3 {
-        font-size: 1.8rem;
-    }
-
-    .book-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .meta {
-        text-align: center; /* Centrar info de estrellas */
-        margin-bottom: 10px;
-    }
-
-    .buy-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* --- Footer --- */
-    .footer-content {
-        grid-template-columns: 1fr; /* 1 Columna */
-        text-align: center;
-        gap: 40px;
-    }
-    
-    .footer-brand p {
-        margin: 0 auto; /* Centrar el párrafo */
-    }
-
-    .news-form {
-        flex-direction: column; /* Input arriba, botón abajo */
-    }
-    
-    .news-form button {
-        padding: 12px; /* Botón más alto para tocar fácil */
-        width: 100%;
-    }
+    /* Footer */
+    .footer-content { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    .footer-brand p { margin: 0 auto; }
+    .news-form { flex-direction: column; }
+    .news-form button { padding: 12px; width: 100%; }
 }
