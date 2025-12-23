@@ -357,46 +357,97 @@ footer {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    /* Grid de 3 columnas iguales */
+    grid-template-columns: 1fr 1fr 1fr; 
     gap: 40px;
     margin-bottom: 60px;
 }
 
-.footer-brand span { font-weight: 700; font-size: 1.1rem; display: block; margin-bottom: 10px; }
-.footer-brand p { color: var(--text-light); max-width: 250px; }
-
-.footer-contact strong, .footer-newsletter strong {
-    display: block;
-    margin-bottom: 15px;
+/* Estilo LOGO DE TEXTO */
+.footer-brand .brand-name { 
+    font-weight: 800; /* Más negrita */
+    font-size: 1.8rem; /* Más grande */
+    display: block; 
+    margin-bottom: 10px;
+    letter-spacing: -1px; /* Estilo moderno más pegado */
     color: var(--primary);
 }
 
-.footer-contact span { display: block; margin-bottom: 8px; color: var(--text-light); }
+.footer-brand p { 
+    color: var(--text-light); 
+    max-width: 250px; 
+    line-height: 1.6;
+}
 
-.news-form {
-    display: flex;
+/* Títulos de columnas (Contacto, Síguenos) */
+.footer-contact strong, 
+.footer-social strong {
+    display: block;
+    margin-bottom: 20px;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.footer-contact span { 
+    display: flex; /* Para alinear icono y texto */
+    align-items: center;
     gap: 10px;
-    margin-top: 15px;
-}
-.news-form input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    flex: 1;
-}
-.news-form button {
-    background: #000;
-    color: #fff;
-    border-radius: 6px;
-    padding: 0 15px;
+    margin-bottom: 12px; 
+    color: var(--text-light); 
 }
 
+/* --- Redes Sociales --- */
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f5f5f7; /* Fondo gris suave */
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary); /* Negro al pasar mouse */
+    color: var(--white); /* Icono blanco */
+    transform: translateY(-3px); /* Pequeña elevación */
+}
+
+/* Copyright */
 .copyright {
     text-align: center;
     color: #aaa;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     border-top: 1px solid #eee;
     padding-top: 30px;
+}
+
+/* Ajuste Responsivo para Footer */
+@media screen and (max-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* Una sola columna */
+        text-align: center;
+        gap: 50px;
+    }
+
+    .footer-brand p { margin: 0 auto; }
+    
+    .footer-contact span { 
+        justify-content: center; /* Centrar iconos de contacto */
+    }
+
+    .social-icons {
+        justify-content: center; /* Centrar redes sociales */
+    }
 }
 
 /* =========================================
@@ -485,4 +536,149 @@ footer {
     .footer-brand p { margin: 0 auto; }
     .news-form { flex-direction: column; }
     .news-form button { padding: 12px; width: 100%; }
+}
+
+/* --- Sección Videos --- */
+.videos {
+    padding: 80px 0;
+    background-color: #fff; /* Fondo blanco para contraste con secciones grises */
+    border-top: 1px solid var(--bg-light);
+}
+
+/* Modificación de la tarjeta para videos */
+.card.video-card {
+    padding: 0; /* Quitamos el padding interno para que el video toque los bordes */
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Sombra más suave */
+}
+
+.video-card .card-content {
+    padding: 25px; /* Agregamos padding solo al texto de abajo */
+}
+
+.video-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.video-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+/* Contenedor responsivo para el iframe (mantiene 16:9) */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    height: 0;
+    background: #000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* --- Sección 5: Sobre Mí --- */
+.cinco {
+    padding: 100px 0;
+    background-color: #fff;
+    border-top: 1px solid var(--bg-light);
+}
+
+.about-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 80px;
+    align-items: center;
+}
+
+/* Estilo de la Foto */
+.image-frame {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+}
+
+.image-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.image-frame:hover img {
+    transform: scale(1.03); /* Efecto zoom suave al pasar el mouse */
+}
+
+/* Estilo del Texto */
+.about-text-col {
+    padding-right: 20px;
+}
+
+.about-text-col h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+/* Estadísticas rápidas */
+.about-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-item span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* =========================================
+   MEDIA QUERIES (ACTUALIZACIÓN PARA SOBRE MÍ)
+   ========================================= */
+
+@media screen and (max-width: 1024px) {
+    .about-wrapper {
+        grid-template-columns: 1fr; /* Una sola columna en tablet/móvil */
+        gap: 50px;
+        text-align: center;
+    }
+
+    .about-text-col { padding-right: 0; }
+    
+    .pGen { margin-left: auto !important; margin-right: auto !important; } /* Centrar párrafos */
+    
+    .about-stats {
+        justify-content: center; /* Centrar estadísticas */
+    }
+    
+    .image-frame {
+        max-width: 400px; /* Limitar ancho de foto en móvil */
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .about-text-col h2 { font-size: 2rem; }
+    .stat-item strong { font-size: 1.5rem; }
+    .about-stats { gap: 20px; }
 }
